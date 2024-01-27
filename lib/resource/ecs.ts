@@ -30,7 +30,6 @@ export class Ecs extends BaseResource {
         const sbcntrStgRoleTaskDefinitionArn = Fn.importValue('sbcntr-stg-role-taskDefinitionArn');
         const sbcntrstgsubnetcontainer1aId = Fn.importValue('sbcntr-stg-subnet-container-1a');
         const sbcntrstgsubnetcontainer1cId = Fn.importValue('sbcntr-stg-subnet-container-1c');
-        const RDSSecretSbcntrMysqlArn = Fn.importValue('RDSSecret-sbcntr-mysql');
 
         // CloudWatch Logsのロググループを作成
         const logGroupBackend = new logs.LogGroup(scope, 'BackendLogGroup', {
@@ -43,6 +42,8 @@ export class Ecs extends BaseResource {
             removalPolicy: RemovalPolicy.DESTROY, // スタックの削除時にロググループも削除する
         });
 
+        // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントイン
+        // const RDSSecretSbcntrMysqlArn = Fn.importValue('RDSSecret-sbcntr-mysql');
 
         this.taskDefinitionBackend = new CfnTaskDefinition(scope, 'backend-def', {
             containerDefinitions: [{
@@ -60,24 +61,25 @@ export class Ecs extends BaseResource {
                     name: 'app',
                     protocol: 'tcp',
                 }],
-                secrets: [ // Secrets Managerからのシークレットを追加
-                    {
-                        name: 'DB_HOST',
-                        valueFrom: RDSSecretSbcntrMysqlArn + ':host::'
-                    },
-                    {
-                        name: 'DB_NAME',
-                        valueFrom: RDSSecretSbcntrMysqlArn + ':dbname::'
-                    },
-                    {
-                        name: 'DB_USERNAME',
-                        valueFrom: RDSSecretSbcntrMysqlArn + ':username::'
-                    },
-                    {
-                        name: 'DB_PASSWORD',
-                        valueFrom: RDSSecretSbcntrMysqlArn + ':password::'
-                    },
-                ],
+                // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントイン
+                // secrets: [ // Secrets Managerからのシークレットを追加
+                //     {
+                //         name: 'DB_HOST',
+                //         valueFrom: RDSSecretSbcntrMysqlArn + ':host::'
+                //     },
+                //     {
+                //         name: 'DB_NAME',
+                //         valueFrom: RDSSecretSbcntrMysqlArn + ':dbname::'
+                //     },
+                //     {
+                //         name: 'DB_USERNAME',
+                //         valueFrom: RDSSecretSbcntrMysqlArn + ':username::'
+                //     },
+                //     {
+                //         name: 'DB_PASSWORD',
+                //         valueFrom: RDSSecretSbcntrMysqlArn + ':password::'
+                //     },
+                // ],
                 logConfiguration: {
                     logDriver: 'awslogs',
                     options: {
@@ -149,24 +151,25 @@ export class Ecs extends BaseResource {
                     name: 'app',
                     protocol: 'tcp',
                 }],
-                secrets: [ // Secrets Managerからのシークレットを追加
-                    {
-                        name: 'DB_HOST',
-                        valueFrom: RDSSecretSbcntrMysqlArn + ':host::'
-                    },
-                    {
-                        name: 'DB_NAME',
-                        valueFrom: RDSSecretSbcntrMysqlArn + ':dbname::'
-                    },
-                    {
-                        name: 'DB_USERNAME',
-                        valueFrom: RDSSecretSbcntrMysqlArn + ':username::'
-                    },
-                    {
-                        name: 'DB_PASSWORD',
-                        valueFrom: RDSSecretSbcntrMysqlArn + ':password::'
-                    },
-                ],
+                // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントイン
+                // secrets: [ // Secrets Managerからのシークレットを追加
+                //     {
+                //         name: 'DB_HOST',
+                //         valueFrom: RDSSecretSbcntrMysqlArn + ':host::'
+                //     },
+                //     {
+                //         name: 'DB_NAME',
+                //         valueFrom: RDSSecretSbcntrMysqlArn + ':dbname::'
+                //     },
+                //     {
+                //         name: 'DB_USERNAME',
+                //         valueFrom: RDSSecretSbcntrMysqlArn + ':username::'
+                //     },
+                //     {
+                //         name: 'DB_PASSWORD',
+                //         valueFrom: RDSSecretSbcntrMysqlArn + ':password::'
+                //     },
+                // ],
                 environment: [
                     {
                         name: "SESSION_SECRET_KEY",

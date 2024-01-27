@@ -233,6 +233,16 @@ export class SecurityGroup extends BaseResource {
                     groupId: () => this.vpce.attrGroupId,
                     sourceSecurityGroupId: () => this.mng.attrGroupId,
                 },
+                {
+                    id: 'SecurityGroupIngressVpce4',
+                    securityGroupIngressProps: {
+                        ipProtocol: 'tcp',
+                        cidrIp: '10.0.240.0/24',
+                        fromPort: 443,
+                        toPort: 443
+                    },
+                    groupId: () => this.vpce.attrGroupId
+                },
             ],
             resourceName: 'sg-vpce',
             assign: securityGroup => (this.vpce as CfnSecurityGroup) = securityGroup

@@ -137,7 +137,10 @@ export class Ecs extends BaseResource {
 
         this.taskDefinitionFrontend = new CfnTaskDefinition(scope, 'frontend-def', {
             containerDefinitions: [{
+                // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントアウト
                 image: accountId + '.dkr.ecr.ap-northeast-1.amazonaws.com/sbcntr-stg-frontend:v1',
+                // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントイン
+                // image: accountId + '.dkr.ecr.ap-northeast-1.amazonaws.com/sbcntr-stg-frontend:dbv1',
                 name: 'app',
 
                 // the properties below are optional

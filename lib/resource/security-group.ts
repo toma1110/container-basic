@@ -184,7 +184,17 @@ export class SecurityGroup extends BaseResource {
                     },
                     groupId: () => this.rds.attrGroupId,
                     sourceSecurityGroupId: () => this.mng.attrGroupId,
-                }
+                },
+                {
+                    id: 'SecurityGroupIngressDb4',
+                    securityGroupIngressProps: {
+                        ipProtocol: 'tcp',
+                        cidrIp: '10.0.240.0/24',
+                        fromPort: 3306,
+                        toPort: 3306
+                    },
+                    groupId: () => this.rds.attrGroupId
+                },
             ],
             resourceName: 'sg-db',
             assign: securityGroup => (this.rds as CfnSecurityGroup) = securityGroup

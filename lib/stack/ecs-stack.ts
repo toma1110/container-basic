@@ -38,7 +38,7 @@ export class EcsStack extends Stack {
         // // ECS 「targetGroupが無いとエラーになる。」　※高額なため作業が日をまたぐ場合は一度コメントアウトし、再開時にコメントインする
         // const ecs = new Ecs(this, vpcStack.vpc, Stack.of(this).account, this.securityGroup, targetGroup, loadBalancer);
 
-        // // CodeDeploy　「targetGroupが無いとエラーになる。」
+        // // CodeDeploy　「ECSが無いとエラーになる。」
         // const codedeploy = new CodeDeploy(this, this.securityGroup);
 
 

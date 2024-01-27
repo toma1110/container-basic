@@ -19,8 +19,10 @@ export class Ecs extends BaseResource {
     public readonly serviceFrontend: CfnService;
     constructor(
         scope: Construct,
+        vpc: Vpc,
         accountId: string,
         securityGroup: SecurityGroup,
+        // subnet: Subnet,
         targetGroup: TargetGroup,
         loadBalancer: LoadBalancer
     ) {

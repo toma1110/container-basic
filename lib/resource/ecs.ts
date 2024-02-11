@@ -42,9 +42,6 @@ export class Ecs extends BaseResource {
             removalPolicy: RemovalPolicy.DESTROY, // スタックの削除時にロググループも削除する
         });
 
-        // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントイン
-        // const RDSSecretSbcntrMysqlArn = Fn.importValue('RDSSecret-sbcntr-mysql');
-
         this.taskDefinitionBackend = new CfnTaskDefinition(scope, 'backend-def', {
             containerDefinitions: [{
                 image: accountId + '.dkr.ecr.ap-northeast-1.amazonaws.com/sbcntr-stg-backend:v1',
@@ -61,25 +58,6 @@ export class Ecs extends BaseResource {
                     name: 'app',
                     protocol: 'tcp',
                 }],
-                // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントイン
-                // secrets: [ // Secrets Managerからのシークレットを追加
-                //     {
-                //         name: 'DB_HOST',
-                //         valueFrom: RDSSecretSbcntrMysqlArn + ':host::'
-                //     },
-                //     {
-                //         name: 'DB_NAME',
-                //         valueFrom: RDSSecretSbcntrMysqlArn + ':dbname::'
-                //     },
-                //     {
-                //         name: 'DB_USERNAME',
-                //         valueFrom: RDSSecretSbcntrMysqlArn + ':username::'
-                //     },
-                //     {
-                //         name: 'DB_PASSWORD',
-                //         valueFrom: RDSSecretSbcntrMysqlArn + ':password::'
-                //     },
-                // ],
                 logConfiguration: {
                     logDriver: 'awslogs',
                     options: {
@@ -132,14 +110,14 @@ export class Ecs extends BaseResource {
             }
         });
 
-
-
+        // // 「コンテナのリリースを体験」実行の際にコメントイン
+        // const RDSSecretSbcntrMysqlArn = Fn.importValue('RDSSecret-sbcntr-mysql');
 
         this.taskDefinitionFrontend = new CfnTaskDefinition(scope, 'frontend-def', {
             containerDefinitions: [{
-                // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントアウト
+                // 「コンテナのリリースを体験」実行の際にコメントアウト
                 image: accountId + '.dkr.ecr.ap-northeast-1.amazonaws.com/sbcntr-stg-frontend:v1',
-                // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントイン
+                // // 「コンテナのリリースを体験」実行の際にコメントイン
                 // image: accountId + '.dkr.ecr.ap-northeast-1.amazonaws.com/sbcntr-stg-frontend:dbv1',
                 name: 'app',
 
@@ -154,7 +132,7 @@ export class Ecs extends BaseResource {
                     name: 'app',
                     protocol: 'tcp',
                 }],
-                // // 「コンテナのリリース（ブルーグリーンデプロイ）を体験」実行の際にコメントイン
+                // // 「コンテナのリリースを体験」実行の際にコメントイン
                 // secrets: [ // Secrets Managerからのシークレットを追加
                 //     {
                 //         name: 'DB_HOST',

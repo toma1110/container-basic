@@ -7,11 +7,13 @@ import { IamStack } from './stack/iam-stack';
 import { SecretsManagerStack } from './stack/secrets-manager-stack';
 import { RdsStack } from './stack/rds-stack';
 import { SecretsManagerDBUserStack } from './stack/secrets-manager-stack-dbuser';
-
+import { CodeComitStack } from './stack/codecommit-stack';
+import { CICDStack } from './stack/cicd-stack';
 
 export class CodeStack {
   constructor(scope: Construct, id: string, props?: StackProps) {
 
+    // AWSコンテナ構築・運用ハンズオン【ECS、Fargate】 https://note.shiftinc.jp/n/n16cdcc2df8bf
     // VPC Stack
     const vpcStack = new VpcStack(scope, 'VpcStack', {
       ...props,
@@ -54,6 +56,18 @@ export class CodeStack {
     });
     secretsManagerDBUserStack.addDependency(rdsstack)
 
+
+    // AWSコンテナCI/CD実装ハンズオン【ECS、Fargate】 https://note.shiftinc.jp/n/XXXXXXX
+
+    // CodeCommitStack
+    const codeCommitStack = new CodeComitStack(scope, 'CodeComitStack', {
+      stackName: this.createStackName(scope, 'codecomit')
+    });
+
+    // CI/CDStack
+    const cicdStack = new CICDStack(scope, 'CICDStack', {
+      stackName: this.createStackName(scope, 'cicd')
+    });
 
   }
 

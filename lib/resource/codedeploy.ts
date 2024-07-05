@@ -11,6 +11,8 @@ import { SecurityGroup } from "./security-group";
 
 
 export class CodeDeploy extends BaseResource {
+    public readonly backdendDeployMentGroup: codedeploy.EcsDeploymentGroup
+
     constructor(scope: Construct, securityGroup: SecurityGroup, props?: cdk.StackProps) {
         super();
 
@@ -69,7 +71,7 @@ export class CodeDeploy extends BaseResource {
         });
 
         // CodeDeployデプロイメントグループの作成
-        new codedeploy.EcsDeploymentGroup(scope, 'MyDeploymentGroup', {
+        this.backdendDeployMentGroup = new codedeploy.EcsDeploymentGroup(scope, 'MyDeploymentGroup', {
             application,
             deploymentGroupName: this.createResourceName(scope, 'backend-deployment-group'),
             service: serviceBackend,

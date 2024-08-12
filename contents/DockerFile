@@ -1,5 +1,5 @@
 # Multi stage building strategy for reducing image size.
-FROM [aws_account_id].dkr.ecr.ap-northeast-1.amazonaws.com/sbcntr-base:1.16.8-alpine3.13:golang1.16.8-alpne3.13 AS build-env
+FROM [aws_account_id].dkr.ecr.ap-northeast-1.amazonaws.com/sbcntr-base:golang1.16.8-alpne3.13 AS build-env
 ENV GO111MODULE=on
 RUN mkdir /app
 WORKDIR /app

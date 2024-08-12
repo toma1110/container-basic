@@ -45,7 +45,7 @@
           ]
       }
   ],
-  "family": "sbcntr-stg-stack-ecs-backenddef-61cq6ptxZdNC",
+  "family": "[BackendDef]",
   "executionRoleArn": "arn:aws:iam::[aws_account_id]:role/sbcntr-stg-role-taskDefinition",
   "networkMode": "awsvpc",
   "status": "ACTIVE",
